@@ -22,7 +22,8 @@ class Scene extends Phaser.Scene {
     }
 
     jump() {
-
+        console.log("kump");
+        this.player.setVelocity(-5)
     }
 
     create() {
@@ -31,7 +32,16 @@ class Scene extends Phaser.Scene {
         this.bg = this.add.tileSprite(84/2, 48/2,
             48,48, "bg");
 
-            this.add.sprite(20,20,"face");
+        this.player = this.physics.add.sprite(20,20,"face");
+        this.player.setGravityY(5);
+        let notthis=this;
+        this.input.keyboard.on("keydown", (a,b) => {
+            //console.log(a);
+            if (a.key=="1") {
+                notthis.jump();
+            }
+        });
+
 
         //sprites.push(this.add.sprite(16,16,"t"));
         //sprites.push(this.add.sprite(0,32,"t"));
@@ -40,6 +50,7 @@ class Scene extends Phaser.Scene {
 
     update() {
         this.bg.tilePositionX += 1;
+        this.player.x = 20;
         /*
         sprites[0].x += 1;
         if (sprites[0].x>84) {
@@ -61,6 +72,9 @@ let config = {
     pixelArt : true,
     zoom : 8,
     backgroundColor : "#c7f0d8",
+    physics : {
+        default : "arcade"
+    },
     scene : [Scene]
 }
 
